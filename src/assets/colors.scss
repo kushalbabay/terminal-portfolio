@@ -1,0 +1,14 @@
+// Colors
+$black: #000000;
+$green: green;
+
+// Animations
+
+@keyframes blink {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}

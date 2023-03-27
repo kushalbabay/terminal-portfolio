@@ -1,0 +1,15 @@
+@import "../../assets/colors.scss";
+
+.input-line {
+  color: $green;
+  display: flex;
+  align-items: center;
+
+  &__cursor {
+    margin-left: 8px;
+    height: 1rem;
+    width: 0.6rem;
+    background-color: $green;
+    animation: blink 1s infinite;
+  }
+}
