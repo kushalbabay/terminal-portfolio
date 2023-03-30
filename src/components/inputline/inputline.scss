@@ -4,9 +4,27 @@
   color: $green;
   display: flex;
   align-items: center;
+  line-height: 100%;
+
+  &__input-field {
+    padding: 0;
+    border: none;
+    outline: none;
+    color: $green;
+    background-color: transparent;
+    margin-left: 8px;
+    font-size: 1rem;
+    font-family: monospace;
+    caret-color: transparent;
+
+    &:focus + .input-line__cursor {
+      display: block;
+    }
+  }
 
   &__cursor {
-    margin-left: 8px;
+    display: none;
+    margin-left: 4px;
     height: 1rem;
     width: 0.6rem;
     background-color: $green;
