@@ -5,15 +5,25 @@
   width: 100vw;
   overflow-x: hidden;
   font-family: monospace;
-  padding: 8px;
+  padding: 16px;
   background-color: $black;
   color: $green;
+
+  .link {
+    color: $link-blue;
+    text-decoration: none;
+    cursor: pointer;
+  }
+
+  svg {
+    display: block;
+  }
 
   .output-stack {
     max-width: 90vw;
 
     .output {
-      margin-bottom: 16px;
+      margin: 16px 0;
     }
   }
 

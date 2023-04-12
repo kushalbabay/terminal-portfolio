@@ -1,5 +1,5 @@
 import React from "react";
-import { outputs } from "../models/models";
+import { acceptedInputs, outputs } from "../models/models";
 
 export const showCommandNotFoundMessage = (command: string) => {
   return (
@@ -29,4 +29,28 @@ export const showCommandOutput = (command: string) => {
       );
   }
   return output;
+};
+
+export const autoCompleteInput = (
+  enteredInput: string,
+  autoCompleteSuggestionIndex: number,
+  setInputCommand: Function
+) => {
+  let acceptedInputsCopy = [...acceptedInputs];
+  let foundIndex = -1;
+  let modifiedAcceptedInputs = [
+    ...acceptedInputsCopy.slice(autoCompleteSuggestionIndex),
+    ...acceptedInputsCopy.slice(0, autoCompleteSuggestionIndex),
+  ];
+
+  let suggestion = modifiedAcceptedInputs.find((input) =>
+    input.startsWith(enteredInput)
+  );
+
+  if (suggestion) {
+    setInputCommand(suggestion);
+    foundIndex = acceptedInputsCopy.indexOf(suggestion);
+  }
+
+  return foundIndex;
 };

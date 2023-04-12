@@ -1,8 +1,10 @@
 // Colors
 $black: #000000;
 $green: green;
+$blackGreen: rgb(2, 101, 2);
 $red: red;
 $white: white;
+$link-blue: dodgerblue;
 
 // Animations
 
@@ -12,5 +14,14 @@ $white: white;
   }
   to {
     opacity: 1;
+  }
+}
+
+@keyframes translateLeft {
+  from {
+    left: 0;
+  }
+  to {
+    left: 100%;
   }
 }

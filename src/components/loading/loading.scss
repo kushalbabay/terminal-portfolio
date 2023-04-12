@@ -1,0 +1,183 @@
+@import "../../assets/colors.scss";
+
+.loading__container {
+  height: 100vh;
+  width: 100vw;
+  overflow-x: hidden;
+  font-family: monospace;
+  padding: 16px;
+  background: $black;
+  color: $green;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  &__text {
+    transform: scale(0.6);
+  }
+
+  &__message {
+    transform: translateY(-110px);
+    text-transform: capitalize;
+  }
+
+  &__bar {
+    transform: translateY(-70px);
+    align-items: center;
+    justify-content: center;
+    display: flex;
+
+    &__blocks {
+      align-items: center;
+      justify-content: center;
+      gap: 32px;
+      display: flex;
+      span {
+        display: block;
+        height: 12px;
+        width: 12px;
+        border-radius: 16px;
+        background-color: $blackGreen;
+      }
+    }
+    &__blackbar {
+      position: absolute;
+      top: 0;
+      left: -1200%;
+      height: 100%;
+      width: 1200%;
+      background-color: $black;
+    }
+  }
+}
+
+#pacman1 {
+  display: block;
+  position: relative;
+  top: 50%;
+  height: 50px;
+  width: 50px;
+  margin: -25px 0 0 -25px;
+  animation: translateLeft 4.8s forwards linear;
+}
+#pacman1:before,
+#pacman1:after {
+  content: "";
+  position: absolute;
+  display: block;
+  width: 26px;
+  height: 50px;
+  -webkit-transform-origin: 100% 50%;
+  transform-origin: 100% 50%;
+  -ms-transform-origin: 100% 50%;
+  -webkit-transform-origin: 100% 50%;
+  transform-origin: 100% 50%;
+  background-color: $blackGreen;
+  border-radius: 1000px 0 0 1000px;
+}
+#pacman1:before {
+  -webkit-transform: rotate(45deg);
+  transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  -webkit-transform: rotate(45deg);
+  transform: rotate(45deg);
+  -webkit-animation: pacman-upper 0.5s ease infinite;
+  animation: pacman-upper 0.5s ease infinite;
+  animation-iteration-count: 11;
+}
+#pacman1:after {
+  -webkit-transform: rotate(-45deg);
+  transform: rotate(-45deg);
+  -ms-transform: rotate(-45deg);
+  -webkit-transform: rotate(-45deg);
+  transform: rotate(-45deg);
+  -webkit-animation: pacman-lower 0.5s ease infinite;
+  animation: pacman-lower 0.5s ease infinite;
+  animation-iteration-count: 11;
+}
+
+// PacMan Animation
+
+@-webkit-keyframes pacman-upper {
+  0% {
+    -webkit-transform: rotate(45deg);
+    transform: rotate(45deg);
+    -webkit-transform: rotate(45deg);
+    transform: rotate(45deg);
+  }
+  50% {
+    -webkit-transform: rotate(90deg);
+    transform: rotate(90deg);
+    -webkit-transform: rotate(90deg);
+    transform: rotate(90deg);
+  }
+  100% {
+    -webkit-transform: rotate(45deg);
+    transform: rotate(45deg);
+    -webkit-transform: rotate(45deg);
+    transform: rotate(45deg);
+  }
+}
+@keyframes pacman-upper {
+  0% {
+    -webkit-transform: rotate(45deg);
+    transform: rotate(45deg);
+    -webkit-transform: rotate(45deg);
+    transform: rotate(45deg);
+  }
+  50% {
+    -webkit-transform: rotate(90deg);
+    transform: rotate(90deg);
+    -webkit-transform: rotate(90deg);
+    transform: rotate(90deg);
+  }
+  100% {
+    -webkit-transform: rotate(45deg);
+    transform: rotate(45deg);
+    -webkit-transform: rotate(45deg);
+    transform: rotate(45deg);
+  }
+}
+@-webkit-keyframes pacman-lower {
+  0% {
+    -webkit-transform: rotate(-45deg);
+    transform: rotate(-45deg);
+    -webkit-transform: rotate(-45deg);
+    transform: rotate(-45deg);
+  }
+  50% {
+    -webkit-transform: rotate(-90deg);
+    transform: rotate(-90deg);
+    -webkit-transform: rotate(-90deg);
+    transform: rotate(-90deg);
+  }
+  100% {
+    -webkit-transform: rotate(-45deg);
+    transform: rotate(-45deg);
+    -webkit-transform: rotate(-45deg);
+    transform: rotate(-45deg);
+  }
+}
+@keyframes pacman-lower {
+  0% {
+    -webkit-transform: rotate(-45deg);
+    transform: rotate(-45deg);
+    -webkit-transform: rotate(-45deg);
+    transform: rotate(-45deg);
+  }
+  50% {
+    -webkit-transform: rotate(-90deg);
+    transform: rotate(-90deg);
+    -webkit-transform: rotate(-90deg);
+    transform: rotate(-90deg);
+  }
+  100% {
+    -webkit-transform: rotate(-45deg);
+    transform: rotate(-45deg);
+    -webkit-transform: rotate(-45deg);
+    transform: rotate(-45deg);
+  }
+}
+
+// Pacman Animation End

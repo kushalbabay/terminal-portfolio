@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import InputLine from "../../components/inputline/inputline";
 import { acceptedInputs } from "../../models/models";
 import {
@@ -6,26 +6,64 @@ import {
   showCommandOutput,
 } from "../../utils/utils";
 import "./homepage.scss";
+import Output from "../../components/output/output";
+import LoadingScreen from "../../components/loading/loading";
 
 const Homepage: React.FC = () => {
   const [outputStack, setOutputStack] = useState<React.ReactNode[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    setTimeout(() => {
+      setIsLoading(false);
+    }, 5000);
+  }, []);
+
   const handleCommand = (command: string) => {
     let message;
-    if (!acceptedInputs.includes(command)) {
-      // doFuzzySearch()
-      message = showCommandNotFoundMessage(command);
-      setOutputStack([...outputStack, message]);
-    } else if (["cls", "clr", "clear"].includes(command)) {
-      console.log("Cleared");
+    if (["cls", "clr", "clear"].includes(command)) {
       setOutputStack([]);
     } else {
-      message = showCommandOutput(command);
-      setOutputStack([...outputStack, message]);
+      if (!acceptedInputs.includes(command)) {
+        // doFuzzySearch()
+        message = showCommandNotFoundMessage(command);
+      } else {
+        message = showCommandOutput(command);
+      }
+      setOutputStack([
+        ...outputStack,
+        <Output command={command}>{message}</Output>,
+      ]);
     }
     document.querySelector(".empty-space")?.scrollIntoView();
   };
+
+  if (isLoading) {
+    return <LoadingScreen />;
+  }
+
   return (
     <div className="container">
+      <div className="brand">
+        <pre>
+          {`
+##    ## ##     ##  ######  ##     ##    ###    ##       ####  ######  
+##   ##  ##     ## ##    ## ##     ##   ## ##   ##       #### ##    ## 
+##  ##   ##     ## ##       ##     ##  ##   ##  ##        ##  ##       
+#####    ##     ##  ######  ######### ##     ## ##       ##    ######  
+##  ##   ##     ##       ## ##     ## ######### ##                  ## 
+##   ##  ##     ## ##    ## ##     ## ##     ## ##            ##    ## 
+##    ##  #######   ######  ##     ## ##     ## ########       ######  
+            `}
+        </pre>
+        Built with{" "}
+        <a target="_blank" href="https://www.gatsbyjs.com/" className="link">
+          Gatsby.js
+        </a>{" "}
+        &&nbsp;<span className="red">&#10084;</span>
+        <br />
+        <br />
+      </div>
       <div className="output-stack">
         {outputStack.map((output, index) => {
           return (
