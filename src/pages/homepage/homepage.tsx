@@ -8,6 +8,7 @@ import {
 import "./homepage.scss";
 import Output from "../../components/output/output";
 import LoadingScreen from "../../components/loading/loading";
+import { AnimatePresence } from "framer-motion";
 
 const Homepage: React.FC = () => {
   const [outputStack, setOutputStack] = useState<React.ReactNode[]>([]);
@@ -38,12 +39,9 @@ const Homepage: React.FC = () => {
     document.querySelector(".empty-space")?.scrollIntoView();
   };
 
-  if (isLoading) {
-    return <LoadingScreen />;
-  }
-
   return (
     <div className="container">
+      <AnimatePresence>{isLoading && <LoadingScreen />}</AnimatePresence>
       <div className="brand">
         <pre>
           {`
