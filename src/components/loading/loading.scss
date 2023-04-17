@@ -13,7 +13,6 @@
   overflow-x: hidden;
   font-family: monospace;
   padding: 16px;
-  background: $black;
   color: $green;
   display: flex;
   flex-direction: column;
@@ -69,7 +68,7 @@
   height: 50px;
   width: 50px;
   margin: -25px 0 0 -25px;
-  animation: translateLeft 4.8s forwards linear;
+  animation: translateRight 4.5s 0.5s forwards linear;
 }
 #pacman1:before,
 #pacman1:after {

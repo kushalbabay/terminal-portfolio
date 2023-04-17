@@ -1,33 +1,36 @@
 @import "../../assets/colors.scss";
 
-.input-line {
-  color: $green;
-  display: flex;
-  align-items: center;
-  line-height: 100%;
-
-  &__input-field {
-    padding: 0;
-    border: none;
-    outline: none;
+.input-container {
+  .input-line {
     color: $green;
-    background-color: transparent;
-    margin-left: 8px;
-    font-size: 1rem;
-    font-family: monospace;
-    caret-color: transparent;
+    display: flex;
+    align-items: center;
+    line-height: 100%;
 
-    &:focus + .input-line__cursor {
-      display: block;
+    &__input-field {
+      padding: 0;
+      border: none;
+      outline: none;
+      color: $green;
+      background-color: transparent;
+      margin-left: 8px;
+      font-size: 1rem;
+      font-family: monospace;
+      caret-color: transparent;
+      pointer-events: none;
+
+      &:focus + .input-line__cursor {
+        display: block;
+      }
     }
-  }
 
-  &__cursor {
-    display: none;
-    margin-left: 4px;
-    height: 1rem;
-    width: 0.6rem;
-    background-color: $green;
-    animation: blink 1s infinite;
+    &__cursor {
+      display: none;
+      margin-left: 4px;
+      height: 1rem;
+      width: 0.5rem;
+      background-color: $green;
+      animation: blink 1s infinite;
+    }
   }
 }

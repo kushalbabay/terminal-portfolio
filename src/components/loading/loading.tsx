@@ -25,8 +25,13 @@ export default function LoadingScreen() {
       transition={{ ease: "easeIn", bounce: false, type: "just" }}
       className="motion__div"
     >
-      <div className="loading__container">
-        <RainBG />
+      <RainBG />
+      <motion.div
+        initial={{ y: 100, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        transition={{ ease: "easeIn", bounce: false, type: "just" }}
+        className="loading__container"
+      >
         <pre className="loading__container__text">{loadingText}</pre>
         <p className="loading__container__message">
           {loadingMessages[loadingTextIndex]}
@@ -36,14 +41,15 @@ export default function LoadingScreen() {
           <div className="loading__container__bar__blocks">
             {Array.from({ length: 10 }, (_, i) => (
               <motion.span
+                key={i}
                 initial={{ opacity: 1 }}
                 animate={{ opacity: 0 }}
-                transition={{ delay: 0.48 * i }}
+                transition={{ delay: 0.7 + 0.45 * i }}
               ></motion.span>
             ))}
           </div>
         </div>
-      </div>
+      </motion.div>
     </motion.div>
   );
 }
