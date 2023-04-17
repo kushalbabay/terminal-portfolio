@@ -1,0 +1,2 @@
+"use strict";(self.webpackChunkterminal_portfolio=self.webpackChunkterminal_portfolio||[]).push([[691],{7200:function(e,t,l){l.r(t),l.d(t,{Head:function(){return a}});var n=l(7294),u=l(8296);t.default=()=>n.createElement(u.default,null);const a=()=>n.createElement("title",null,"Kushal's")}}]);
+//# sourceMappingURL=component---src-pages-index-tsx-a4124ce57a1ddc6b02a5.js.map
