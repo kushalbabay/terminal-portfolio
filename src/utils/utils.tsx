@@ -1,4 +1,3 @@
-import React from "react";
 import { acceptedInputs, outputs } from "../models/models";
 
 export const showCommandNotFoundMessage = (command: string) => {

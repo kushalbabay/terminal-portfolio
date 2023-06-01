@@ -1,4 +1,3 @@
-import React from "react";
 export const commandLineText = `visitor@kushal's-terminal:~$`;
 
 export const acceptedInputs = [
