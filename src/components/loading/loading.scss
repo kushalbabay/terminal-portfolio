@@ -1,0 +1,243 @@
+@import "../../assets/colors.scss";
+
+.motion__div {
+  height: 100vh;
+  width: 100vw;
+  overflow: hidden;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 99;
+  cursor: default;
+}
+
+.confirmation__window {
+  height: 100vh;
+  width: 100vw;
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  &__box {
+    text-align: center;
+    background-color: $black;
+    border: 2px dashed $blackGreen;
+    padding: 36px;
+    display: flex;
+    gap: 18px;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-family: "Press Start 2P", cursive;
+
+    .buttons {
+      display: flex;
+      gap: 128px;
+
+      .button {
+        cursor: pointer;
+        font-family: "Press Start 2P", cursive;
+        background-color: $black;
+        color: $blackGreen;
+        padding: 8px 16px;
+        font-size: 18px;
+        outline: none;
+        border: 2px dashed $blackGreen;
+
+        &:hover {
+          border: 2px solid transparent;
+          color: $black;
+          background-color: $blackGreen;
+        }
+      }
+    }
+
+    p {
+      font-size: 20px;
+      text-transform: capitalize;
+    }
+  }
+}
+
+.loading__container {
+  height: 100vh;
+  width: 100vw;
+  top: 0;
+  left: 0;
+  overflow-x: hidden;
+  font-family: "IBM Plex Mono", monospace;
+  font-weight: 500;
+  padding: 16px;
+  color: $green;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index: -2;
+  position: relative;
+
+  &__text {
+    transform: scale(0.6);
+  }
+
+  &__message {
+    transform: translateY(-110px);
+    text-transform: capitalize;
+  }
+
+  &__bar {
+    transform: translateY(-70px);
+    align-items: center;
+    justify-content: space-between;
+    display: flex;
+
+    &__blocks {
+      align-items: center;
+      justify-content: center;
+      gap: 60px;
+      display: flex;
+
+      span {
+        display: block;
+        height: 12px;
+        width: 12px;
+        border-radius: 16px;
+        background-color: $blackGreen;
+      }
+    }
+  }
+}
+
+#pacman1 {
+  display: block;
+  position: relative;
+  top: 50%;
+  height: 50px;
+  width: 50px;
+  margin: -25px 10px 0 -25px;
+  animation: translateRight 2.5s 0.5s forwards linear;
+}
+#pacman1:before,
+#pacman1:after {
+  content: "";
+  position: absolute;
+  display: block;
+  width: 26px;
+  height: 50px;
+  -webkit-transform-origin: 100% 50%;
+  transform-origin: 100% 50%;
+  -ms-transform-origin: 100% 50%;
+  -webkit-transform-origin: 100% 50%;
+  transform-origin: 100% 50%;
+  background-color: $blackGreen;
+  border-radius: 1000px 0 0 1000px;
+}
+#pacman1:before {
+  -webkit-transform: rotate(45deg);
+  transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  -webkit-transform: rotate(45deg);
+  transform: rotate(45deg);
+  -webkit-animation: pacman-upper 0.5s 0.5s ease infinite;
+  animation: pacman-upper 0.4s 0.5s ease infinite;
+  animation-iteration-count: 7;
+}
+#pacman1:after {
+  -webkit-transform: rotate(-45deg);
+  transform: rotate(-45deg);
+  -ms-transform: rotate(-45deg);
+  -webkit-transform: rotate(-45deg);
+  transform: rotate(-45deg);
+  -webkit-animation: pacman-lower 0.5s 0.5s ease infinite;
+  animation: pacman-lower 0.4s 0.5s ease infinite;
+  animation-iteration-count: 7;
+}
+
+// PacMan Animation
+
+@-webkit-keyframes pacman-upper {
+  0% {
+    -webkit-transform: rotate(45deg);
+    transform: rotate(45deg);
+    -webkit-transform: rotate(45deg);
+    transform: rotate(45deg);
+  }
+  50% {
+    -webkit-transform: rotate(90deg);
+    transform: rotate(90deg);
+    -webkit-transform: rotate(90deg);
+    transform: rotate(90deg);
+  }
+  100% {
+    -webkit-transform: rotate(45deg);
+    transform: rotate(45deg);
+    -webkit-transform: rotate(45deg);
+    transform: rotate(45deg);
+  }
+}
+@keyframes pacman-upper {
+  0% {
+    -webkit-transform: rotate(45deg);
+    transform: rotate(45deg);
+    -webkit-transform: rotate(45deg);
+    transform: rotate(45deg);
+  }
+  50% {
+    -webkit-transform: rotate(90deg);
+    transform: rotate(90deg);
+    -webkit-transform: rotate(90deg);
+    transform: rotate(90deg);
+  }
+  100% {
+    -webkit-transform: rotate(45deg);
+    transform: rotate(45deg);
+    -webkit-transform: rotate(45deg);
+    transform: rotate(45deg);
+  }
+}
+@-webkit-keyframes pacman-lower {
+  0% {
+    -webkit-transform: rotate(-45deg);
+    transform: rotate(-45deg);
+    -webkit-transform: rotate(-45deg);
+    transform: rotate(-45deg);
+  }
+  50% {
+    -webkit-transform: rotate(-90deg);
+    transform: rotate(-90deg);
+    -webkit-transform: rotate(-90deg);
+    transform: rotate(-90deg);
+  }
+  100% {
+    -webkit-transform: rotate(-45deg);
+    transform: rotate(-45deg);
+    -webkit-transform: rotate(-45deg);
+    transform: rotate(-45deg);
+  }
+}
+@keyframes pacman-lower {
+  0% {
+    -webkit-transform: rotate(-45deg);
+    transform: rotate(-45deg);
+    -webkit-transform: rotate(-45deg);
+    transform: rotate(-45deg);
+  }
+  50% {
+    -webkit-transform: rotate(-90deg);
+    transform: rotate(-90deg);
+    -webkit-transform: rotate(-90deg);
+    transform: rotate(-90deg);
+  }
+  100% {
+    -webkit-transform: rotate(-45deg);
+    transform: rotate(-45deg);
+    -webkit-transform: rotate(-45deg);
+    transform: rotate(-45deg);
+  }
+}
+
+// Pacman Animation End

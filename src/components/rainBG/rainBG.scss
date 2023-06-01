@@ -1,0 +1,7 @@
+.canvas {
+  position: absolute;
+  left: -8px;
+  top: -8px;
+  z-index: -99;
+  filter: blur(4px);
+}
