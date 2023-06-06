@@ -14,10 +14,21 @@ const InputLine: React.FC<InputLineProps> = ({ handleCommand }) => {
     useState(0);
   const [commandStack, setCommandStack] = useState<string[]>([]);
   const [inputCommandIndex, setInputCommandIndex] = useState<number>(-1);
+  const [depth, setDepth] = useState([2, 2, 3, 3, 1, 1]);
+  const [isLoading, setIsLoading] = useState(false);
+
+  useEffect(() => {
+    const x = setTimeout(() => {
+      setDepth([depth.pop()!, ...depth]);
+    }, 120);
+    return () => {
+      clearTimeout(x);
+    };
+  }, [depth]);
 
   useEffect(() => {
     if (commandStack.length) {
-      handleCommand(inputCommand.trim());
+      handleCommand(inputCommand.trim().toLowerCase());
       setInputCommand("");
       setInputCommandIndex(commandStack.length);
     }
@@ -48,6 +59,8 @@ const InputLine: React.FC<InputLineProps> = ({ handleCommand }) => {
   };
 
   const handleKeyDown = (e: React.KeyboardEvent) => {
+    if (isLoading) e.preventDefault();
+    let loadingTimeout: number;
     if (["ArrowLeft", "ArrowRight", "Home", "End"].includes(e.key)) {
       e.preventDefault();
       return;
@@ -62,7 +75,12 @@ const InputLine: React.FC<InputLineProps> = ({ handleCommand }) => {
       }
     } else if (e.key === "Enter") {
       if (inputCommand?.trim()) {
-        setCommandStack([...commandStack, inputCommand.trim()]);
+        setIsLoading(true);
+        loadingTimeout = window.setTimeout(() => {
+          setIsLoading(false);
+          setCommandStack([...commandStack, inputCommand.trim()]);
+          clearTimeout(loadingTimeout);
+        }, 750);
       } else {
         handleCommand(inputCommand.trim());
         setInputCommand("");
@@ -99,7 +117,23 @@ const InputLine: React.FC<InputLineProps> = ({ handleCommand }) => {
           onChange={(e) => setInputCommand(e.target.value)}
           className="input-line__input-field"
         />
-        <div className="input-line__cursor"></div>
+
+        {isLoading ? (
+          <div className="caret-loader">
+            <div className="col col-left">
+              <span className={"dot shade-" + depth[0]}></span>
+              <span className={"dot shade-" + depth[1]}></span>
+              <span className={"dot shade-" + depth[2]}></span>
+            </div>
+            <div className="col col-right">
+              <span className={"dot shade-" + depth[3]}></span>
+              <span className={"dot shade-" + depth[4]}></span>
+              <span className={"dot shade-" + depth[5]}></span>
+            </div>
+          </div>
+        ) : (
+          <div className="input-line__cursor"></div>
+        )}
       </div>
     </div>
   );

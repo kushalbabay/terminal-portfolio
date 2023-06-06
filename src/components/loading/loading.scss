@@ -11,6 +11,41 @@
   cursor: default;
 }
 
+.loading__container {
+  height: 100vh;
+  width: 100vw;
+  top: 0;
+  left: 0;
+  overflow-x: hidden;
+  font-family: "IBM Plex Mono", monospace;
+  font-weight: 500;
+  padding: 16px;
+  color: $green;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index: -2;
+  position: relative;
+
+  &__text {
+    transform: scale(0.6);
+  }
+
+  &__message {
+    transform: translateY(-110px);
+    text-transform: capitalize;
+  }
+
+  &__bar {
+    transform: translateY(-70px);
+    align-items: center;
+    justify-content: space-between;
+    display: flex;
+    gap: 32px;
+  }
+}
+
 .confirmation__window {
   height: 100vh;
   width: 100vw;
@@ -63,181 +98,60 @@
   }
 }
 
-.loading__container {
-  height: 100vh;
-  width: 100vw;
-  top: 0;
-  left: 0;
-  overflow-x: hidden;
-  font-family: "IBM Plex Mono", monospace;
-  font-weight: 500;
-  padding: 16px;
-  color: $green;
+.outer {
+  border-radius: 4px;
   display: flex;
-  flex-direction: column;
   justify-content: center;
   align-items: center;
-  z-index: -2;
-  position: relative;
+  height: 18px;
+  width: 18px;
+  background-color: transparent;
 
-  &__text {
-    transform: scale(0.6);
+  &-0 {
+    border: 2px solid $green1;
+  }
+  &-1 {
+    border: 2px solid $green2;
+  }
+  &-2 {
+    border: 2px solid $green3;
   }
 
-  &__message {
-    transform: translateY(-110px);
-    text-transform: capitalize;
-  }
-
-  &__bar {
-    transform: translateY(-70px);
-    align-items: center;
-    justify-content: space-between;
+  .mid {
+    border-radius: 2px;
     display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 10px;
+    width: 10px;
+    background-color: transparent;
 
-    &__blocks {
-      align-items: center;
-      justify-content: center;
-      gap: 60px;
+    &-0 {
+      border: 2px solid $green2;
+    }
+    &-1 {
+      border: 2px solid $green3;
+    }
+    &-2 {
+      border: 2px solid $green4;
+    }
+
+    .inner {
       display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 3px;
+      width: 3px;
 
-      span {
-        display: block;
-        height: 12px;
-        width: 12px;
-        border-radius: 16px;
-        background-color: $blackGreen;
+      &-0 {
+        background-color: $green3;
+      }
+      &-1 {
+        background-color: $green4;
+      }
+      &-2 {
+        background-color: $green5;
       }
     }
   }
 }
-
-#pacman1 {
-  display: block;
-  position: relative;
-  top: 50%;
-  height: 50px;
-  width: 50px;
-  margin: -25px 10px 0 -25px;
-  animation: translateRight 2.5s 0.5s forwards linear;
-}
-#pacman1:before,
-#pacman1:after {
-  content: "";
-  position: absolute;
-  display: block;
-  width: 26px;
-  height: 50px;
-  -webkit-transform-origin: 100% 50%;
-  transform-origin: 100% 50%;
-  -ms-transform-origin: 100% 50%;
-  -webkit-transform-origin: 100% 50%;
-  transform-origin: 100% 50%;
-  background-color: $blackGreen;
-  border-radius: 1000px 0 0 1000px;
-}
-#pacman1:before {
-  -webkit-transform: rotate(45deg);
-  transform: rotate(45deg);
-  -ms-transform: rotate(45deg);
-  -webkit-transform: rotate(45deg);
-  transform: rotate(45deg);
-  -webkit-animation: pacman-upper 0.5s 0.5s ease infinite;
-  animation: pacman-upper 0.4s 0.5s ease infinite;
-  animation-iteration-count: 7;
-}
-#pacman1:after {
-  -webkit-transform: rotate(-45deg);
-  transform: rotate(-45deg);
-  -ms-transform: rotate(-45deg);
-  -webkit-transform: rotate(-45deg);
-  transform: rotate(-45deg);
-  -webkit-animation: pacman-lower 0.5s 0.5s ease infinite;
-  animation: pacman-lower 0.4s 0.5s ease infinite;
-  animation-iteration-count: 7;
-}
-
-// PacMan Animation
-
-@-webkit-keyframes pacman-upper {
-  0% {
-    -webkit-transform: rotate(45deg);
-    transform: rotate(45deg);
-    -webkit-transform: rotate(45deg);
-    transform: rotate(45deg);
-  }
-  50% {
-    -webkit-transform: rotate(90deg);
-    transform: rotate(90deg);
-    -webkit-transform: rotate(90deg);
-    transform: rotate(90deg);
-  }
-  100% {
-    -webkit-transform: rotate(45deg);
-    transform: rotate(45deg);
-    -webkit-transform: rotate(45deg);
-    transform: rotate(45deg);
-  }
-}
-@keyframes pacman-upper {
-  0% {
-    -webkit-transform: rotate(45deg);
-    transform: rotate(45deg);
-    -webkit-transform: rotate(45deg);
-    transform: rotate(45deg);
-  }
-  50% {
-    -webkit-transform: rotate(90deg);
-    transform: rotate(90deg);
-    -webkit-transform: rotate(90deg);
-    transform: rotate(90deg);
-  }
-  100% {
-    -webkit-transform: rotate(45deg);
-    transform: rotate(45deg);
-    -webkit-transform: rotate(45deg);
-    transform: rotate(45deg);
-  }
-}
-@-webkit-keyframes pacman-lower {
-  0% {
-    -webkit-transform: rotate(-45deg);
-    transform: rotate(-45deg);
-    -webkit-transform: rotate(-45deg);
-    transform: rotate(-45deg);
-  }
-  50% {
-    -webkit-transform: rotate(-90deg);
-    transform: rotate(-90deg);
-    -webkit-transform: rotate(-90deg);
-    transform: rotate(-90deg);
-  }
-  100% {
-    -webkit-transform: rotate(-45deg);
-    transform: rotate(-45deg);
-    -webkit-transform: rotate(-45deg);
-    transform: rotate(-45deg);
-  }
-}
-@keyframes pacman-lower {
-  0% {
-    -webkit-transform: rotate(-45deg);
-    transform: rotate(-45deg);
-    -webkit-transform: rotate(-45deg);
-    transform: rotate(-45deg);
-  }
-  50% {
-    -webkit-transform: rotate(-90deg);
-    transform: rotate(-90deg);
-    -webkit-transform: rotate(-90deg);
-    transform: rotate(-90deg);
-  }
-  100% {
-    -webkit-transform: rotate(-45deg);
-    transform: rotate(-45deg);
-    -webkit-transform: rotate(-45deg);
-    transform: rotate(-45deg);
-  }
-}
-
-// Pacman Animation End

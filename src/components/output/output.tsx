@@ -9,13 +9,13 @@ interface OutputProps {
 
 const Output: React.FC<OutputProps> = ({ command, children }) => {
   if (!command.length) {
-    return <span style={{ marginRight: "8px" }}>{commandLineText}</span>;
+    return <span className="address">{commandLineText}</span>;
   }
   return (
     <div className="output__container">
       <div className="input-line__address">
-        <span style={{ marginRight: "8px" }}>{commandLineText}</span>
-        {command}
+        <span className="address">{commandLineText}</span>
+        <span className="white">{command}</span>
       </div>
       <br />
       {children}

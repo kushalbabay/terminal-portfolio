@@ -15,20 +15,14 @@ const Homepage: React.FC = () => {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    document
-      .querySelector(".empty-space")
-      ?.scrollIntoView({ behavior: "smooth" });
+    document.querySelector(".empty-space")?.scrollIntoView();
   }, [outputStack]);
 
   const handleFullScreen = (isFullScreenTriggered: boolean) => {
     if (isFullScreenTriggered) {
       document.body.requestFullscreen();
-      setTimeout(() => {
-        setIsLoading(false);
-      }, 250);
-    } else {
-      setIsLoading(false);
     }
+    setIsLoading(false);
   };
 
   const handleCommand = (command: string) => {
@@ -54,9 +48,11 @@ const Homepage: React.FC = () => {
       <AnimatePresence>
         {isLoading && <LoadingScreen handleFullScreen={handleFullScreen} />}
       </AnimatePresence>
-      <div className="brand">
-        <pre>
-          {`
+      {!isLoading && (
+        <>
+          <div className="brand">
+            <pre>
+              {`
  █████   ████                    █████                ████   ██        
 ░░███   ███░                    ░░███                ░░███  ███        
  ░███  ███    █████ ████  █████  ░███████    ██████   ░███ ░░░   █████ 
@@ -69,8 +65,8 @@ const Homepage: React.FC = () => {
                                                                        
                                                                        
 `}
-        </pre>
-        {/* <pre>
+            </pre>
+            {/* <pre>
           {`
                                                   
                                         
@@ -94,25 +90,27 @@ const Homepage: React.FC = () => {
 
           `}
         </pre> */}
-        <br />
-      </div>
-      Built with{" "}
-      <a target="_blank" href="https://www.gatsbyjs.com/" className="link">
-        Gatsby.js
-      </a>{" "}
-      &&nbsp;<span className="red">&#10084;</span>
-      <br />
-      <div className="output-stack">
-        {outputStack.map((output, index) => {
-          return (
-            <div className="output" key={index}>
-              {output}
-            </div>
-          );
-        })}
-      </div>
-      <InputLine handleCommand={handleCommand} />
-      <div className="empty-space"></div>
+            <br />
+          </div>
+          Built with{" "}
+          <a target="_blank" href="https://www.gatsbyjs.com/" className="link">
+            Gatsby.js
+          </a>{" "}
+          &&nbsp;<span className="red">&#10084;</span>
+          <br />
+          <div className="output-stack">
+            {outputStack.map((output, index) => {
+              return (
+                <div className="output" key={index}>
+                  {output}
+                </div>
+              );
+            })}
+          </div>
+          <InputLine handleCommand={handleCommand} />
+          <div className="empty-space"></div>
+        </>
+      )}
     </div>
   );
 };

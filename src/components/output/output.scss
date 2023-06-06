@@ -1,6 +1,9 @@
 @import "../../assets/colors.scss";
 
 .output__container {
+  .address {
+    margin-right: 8px;
+  }
   pre {
     line-height: 22px;
   }
