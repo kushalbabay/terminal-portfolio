@@ -33,7 +33,7 @@ export const outputs = {
       <span className="white">cls | clr | clear</span> - Clears the terminal
       window.
       <br />
-      <span className="white">history</span> - Shows a list of past inputs.
+      <span className="white">history</span> - Shows a list of last 10 inputs.
       <br />
     </pre>
   ),

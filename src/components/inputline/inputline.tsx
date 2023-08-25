@@ -1,49 +1,47 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { commandLineText } from "../../models/models";
 import { autoCompleteInput } from "../../utils/utils";
 import "./inputline.scss";
+import { CommandContext } from "../../contexts/CommandContext";
 
-interface InputLineProps {
+interface IInputLineProps {
   handleCommand: Function;
 }
 
-const InputLine: React.FC<InputLineProps> = ({ handleCommand }) => {
+const InputLine: React.FC<IInputLineProps> = ({ handleCommand }) => {
   const [inputCommand, setInputCommand] = useState("");
   const [autoCompleteInputKeyword, setAutoCompleteInputKeyword] = useState("");
   const [autoCompleteSuggestionIndex, setAutoCompleteSuggestionIndex] =
     useState(0);
-  const [commandStack, setCommandStack] = useState<string[]>([]);
   const [inputCommandIndex, setInputCommandIndex] = useState<number>(-1);
-  const [depth, setDepth] = useState([2, 2, 3, 3, 1, 1]);
-  const [isLoading, setIsLoading] = useState(false);
+  const [caretDepth, setCaretDepth] = useState([2, 2, 3, 3, 1, 1]);
+  const [isCaretLoading, setIsCaretLoading] = useState(false);
+  const { setCommands, commands } = useContext(CommandContext);
 
   useEffect(() => {
     const x = setTimeout(() => {
-      setDepth([depth.pop()!, ...depth]);
-    }, 120);
+      setCaretDepth([caretDepth.pop()!, ...caretDepth]);
+    }, 90);
     return () => {
       clearTimeout(x);
     };
-  }, [depth]);
+  }, [caretDepth]);
 
   useEffect(() => {
-    if (commandStack.length) {
-      handleCommand(inputCommand.trim().toLowerCase());
+    if (commands.length) {
+      handleCommand(commands[commands.length - 1].toLowerCase());
       setInputCommand("");
-      setInputCommandIndex(commandStack.length);
+      setInputCommandIndex(commands.length);
     }
-  }, [commandStack]);
+  }, [commands]);
 
   useEffect(() => {
     triggerAutoComplete();
   }, [autoCompleteInputKeyword]);
 
   useEffect(() => {
-    if (
-      inputCommandIndex > -1 &&
-      inputCommandIndex <= commandStack.length - 1
-    ) {
-      setInputCommand(commandStack[inputCommandIndex]);
+    if (inputCommandIndex > -1 && inputCommandIndex <= commands.length - 1) {
+      setInputCommand(commands[inputCommandIndex]);
     }
   }, [inputCommandIndex]);
 
@@ -59,7 +57,7 @@ const InputLine: React.FC<InputLineProps> = ({ handleCommand }) => {
   };
 
   const handleKeyDown = (e: React.KeyboardEvent) => {
-    if (isLoading) e.preventDefault();
+    if (isCaretLoading) e.preventDefault();
     let loadingTimeout: number;
     if (["ArrowLeft", "ArrowRight", "Home", "End"].includes(e.key)) {
       e.preventDefault();
@@ -75,12 +73,12 @@ const InputLine: React.FC<InputLineProps> = ({ handleCommand }) => {
       }
     } else if (e.key === "Enter") {
       if (inputCommand?.trim()) {
-        setIsLoading(true);
+        setIsCaretLoading(true);
         loadingTimeout = window.setTimeout(() => {
-          setIsLoading(false);
-          setCommandStack([...commandStack, inputCommand.trim()]);
+          setIsCaretLoading(false);
+          setCommands([...commands, inputCommand.trim()]);
           clearTimeout(loadingTimeout);
-        }, 750);
+        }, 400 + Math.floor(Math.random() * 350));
       } else {
         handleCommand(inputCommand.trim());
         setInputCommand("");
@@ -92,9 +90,9 @@ const InputLine: React.FC<InputLineProps> = ({ handleCommand }) => {
         e.preventDefault();
       }
     } else if (e.key === "ArrowDown") {
-      if (inputCommandIndex <= commandStack.length - 1) {
+      if (inputCommandIndex <= commands.length - 1) {
         setInputCommandIndex(inputCommandIndex + 1);
-        if (inputCommandIndex === commandStack.length - 1) {
+        if (inputCommandIndex === commands.length - 1) {
           setInputCommand("");
         }
       }
@@ -118,17 +116,17 @@ const InputLine: React.FC<InputLineProps> = ({ handleCommand }) => {
           className="input-line__input-field"
         />
 
-        {isLoading ? (
+        {isCaretLoading ? (
           <div className="caret-loader">
             <div className="col col-left">
-              <span className={"dot shade-" + depth[0]}></span>
-              <span className={"dot shade-" + depth[1]}></span>
-              <span className={"dot shade-" + depth[2]}></span>
+              <span className={"dot shade-" + caretDepth[0]}></span>
+              <span className={"dot shade-" + caretDepth[1]}></span>
+              <span className={"dot shade-" + caretDepth[2]}></span>
             </div>
             <div className="col col-right">
-              <span className={"dot shade-" + depth[3]}></span>
-              <span className={"dot shade-" + depth[4]}></span>
-              <span className={"dot shade-" + depth[5]}></span>
+              <span className={"dot shade-" + caretDepth[3]}></span>
+              <span className={"dot shade-" + caretDepth[4]}></span>
+              <span className={"dot shade-" + caretDepth[5]}></span>
             </div>
           </div>
         ) : (

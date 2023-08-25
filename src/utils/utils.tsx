@@ -35,7 +35,7 @@ export const autoCompleteInput = (
   autoCompleteSuggestionIndex: number,
   setInputCommand: Function
 ) => {
-  let acceptedInputsCopy = [...acceptedInputs];
+  let acceptedInputsCopy = [...acceptedInputs.sort()];
   let foundIndex = -1;
   let modifiedAcceptedInputs = [
     ...acceptedInputsCopy.slice(autoCompleteSuggestionIndex),

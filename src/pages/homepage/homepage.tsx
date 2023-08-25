@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import InputLine from "../../components/inputline/inputline";
 import { acceptedInputs } from "../../models/models";
 import {
@@ -8,11 +8,23 @@ import {
 import "./homepage.scss";
 import Output from "../../components/output/output";
 import LoadingScreen from "../../components/loading/loading";
+import { CommandContext } from "../../contexts/CommandContext";
 import { AnimatePresence } from "framer-motion";
+import CommandHistory from "../../components/commandHistory/commandHistory";
 
 const Homepage: React.FC = () => {
   const [outputStack, setOutputStack] = useState<React.ReactNode[]>([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [isHistoryShown, setIsHistoryShown] = useState(false);
+  const { commands, setCommands } = useContext(CommandContext);
+
+  useEffect(() => {
+    document.body.addEventListener("keydown", (e) => {
+      if (["ArrowUp", "ArrowDown"].includes(e.key)) {
+        e.preventDefault();
+      }
+    });
+  }, []);
 
   useEffect(() => {
     document.querySelector(".empty-space")?.scrollIntoView();
@@ -29,6 +41,8 @@ const Homepage: React.FC = () => {
     let message;
     if (["cls", "clr", "clear"].includes(command)) {
       setOutputStack([]);
+    } else if (command.toLowerCase() === "history") {
+      setIsHistoryShown(true);
     } else {
       if (!acceptedInputs.includes(command)) {
         // doFuzzySearch()
@@ -51,7 +65,7 @@ const Homepage: React.FC = () => {
       {!isLoading && (
         <>
           <div className="brand">
-            <pre>
+            {/* <pre>
               {`
  █████   ████                    █████                ████   ██        
 ░░███   ███░                    ░░███                ░░███  ███        
@@ -65,9 +79,9 @@ const Homepage: React.FC = () => {
                                                                        
                                                                        
 `}
-            </pre>
+            </pre> */}
             {/* <pre>
-          {`
+              {`
                                                   
                                         
                     .............       
@@ -89,7 +103,7 @@ const Homepage: React.FC = () => {
   ..........::::::::............        
 
           `}
-        </pre> */}
+            </pre> */}
             <br />
           </div>
           Built with{" "}
@@ -107,7 +121,15 @@ const Homepage: React.FC = () => {
               );
             })}
           </div>
-          <InputLine handleCommand={handleCommand} />
+          {!isHistoryShown ? (
+            <InputLine handleCommand={handleCommand} />
+          ) : (
+            <CommandHistory
+              setCommands={setCommands}
+              setIsHistoryShown={setIsHistoryShown}
+              history={commands}
+            />
+          )}
           <div className="empty-space"></div>
         </>
       )}

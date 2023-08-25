@@ -1,0 +1,17 @@
+@import "../../assets/colors.scss";
+
+.history {
+  &__item {
+    display: block;
+    margin-left: 1ch;
+  }
+
+  &__item.selected {
+    margin-left: 0;
+    color: $white;
+  }
+
+  &__container {
+    outline: none;
+  }
+}

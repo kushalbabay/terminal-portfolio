@@ -89,7 +89,7 @@ const LoadingScreen: React.FC<LoadingScreenProps> = ({ handleFullScreen }) => {
             </p>
             <div className="loading__container__bar">
               {Array.from({ length: 9 }, (_, i) => (
-                <Block state={depth[i]} />
+                <Block key={i} state={depth[i]} />
               ))}
             </div>
           </motion.div>
