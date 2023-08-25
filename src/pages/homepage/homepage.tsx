@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import InputLine from "../../components/inputline/inputline";
 import { acceptedInputs } from "../../models/models";
 import {
@@ -8,33 +8,41 @@ import {
 import "./homepage.scss";
 import Output from "../../components/output/output";
 import LoadingScreen from "../../components/loading/loading";
+import { CommandContext } from "../../contexts/CommandContext";
 import { AnimatePresence } from "framer-motion";
+import CommandHistory from "../../components/commandHistory/commandHistory";
 
 const Homepage: React.FC = () => {
   const [outputStack, setOutputStack] = useState<React.ReactNode[]>([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [isHistoryShown, setIsHistoryShown] = useState(false);
+  const { commands, setCommands } = useContext(CommandContext);
 
   useEffect(() => {
-    document
-      .querySelector(".empty-space")
-      ?.scrollIntoView({ behavior: "smooth" });
+    document.body.addEventListener("keydown", (e) => {
+      if (["ArrowUp", "ArrowDown"].includes(e.key)) {
+        e.preventDefault();
+      }
+    });
+  }, []);
+
+  useEffect(() => {
+    document.querySelector(".empty-space")?.scrollIntoView();
   }, [outputStack]);
 
   const handleFullScreen = (isFullScreenTriggered: boolean) => {
     if (isFullScreenTriggered) {
       document.body.requestFullscreen();
-      setTimeout(() => {
-        setIsLoading(false);
-      }, 250);
-    } else {
-      setIsLoading(false);
     }
+    setIsLoading(false);
   };
 
   const handleCommand = (command: string) => {
     let message;
     if (["cls", "clr", "clear"].includes(command)) {
       setOutputStack([]);
+    } else if (command.toLowerCase() === "history") {
+      setIsHistoryShown(true);
     } else {
       if (!acceptedInputs.includes(command)) {
         // doFuzzySearch()
@@ -54,9 +62,11 @@ const Homepage: React.FC = () => {
       <AnimatePresence>
         {isLoading && <LoadingScreen handleFullScreen={handleFullScreen} />}
       </AnimatePresence>
-      <div className="brand">
-        <pre>
-          {`
+      {!isLoading && (
+        <>
+          <div className="brand">
+            {/* <pre>
+              {`
  █████   ████                    █████                ████   ██        
 ░░███   ███░                    ░░███                ░░███  ███        
  ░███  ███    █████ ████  █████  ░███████    ██████   ░███ ░░░   █████ 
@@ -69,9 +79,9 @@ const Homepage: React.FC = () => {
                                                                        
                                                                        
 `}
-        </pre>
-        {/* <pre>
-          {`
+            </pre> */}
+            {/* <pre>
+              {`
                                                   
                                         
                     .............       
@@ -93,26 +103,36 @@ const Homepage: React.FC = () => {
   ..........::::::::............        
 
           `}
-        </pre> */}
-        <br />
-      </div>
-      Built with{" "}
-      <a target="_blank" href="https://www.gatsbyjs.com/" className="link">
-        Gatsby.js
-      </a>{" "}
-      &&nbsp;<span className="red">&#10084;</span>
-      <br />
-      <div className="output-stack">
-        {outputStack.map((output, index) => {
-          return (
-            <div className="output" key={index}>
-              {output}
-            </div>
-          );
-        })}
-      </div>
-      <InputLine handleCommand={handleCommand} />
-      <div className="empty-space"></div>
+            </pre> */}
+            <br />
+          </div>
+          Built with{" "}
+          <a target="_blank" href="https://www.gatsbyjs.com/" className="link">
+            Gatsby.js
+          </a>{" "}
+          &&nbsp;<span className="red">&#10084;</span>
+          <br />
+          <div className="output-stack">
+            {outputStack.map((output, index) => {
+              return (
+                <div className="output" key={index}>
+                  {output}
+                </div>
+              );
+            })}
+          </div>
+          {!isHistoryShown ? (
+            <InputLine handleCommand={handleCommand} />
+          ) : (
+            <CommandHistory
+              setCommands={setCommands}
+              setIsHistoryShown={setIsHistoryShown}
+              history={commands}
+            />
+          )}
+          <div className="empty-space"></div>
+        </>
+      )}
     </div>
   );
 };

@@ -8,9 +8,33 @@ interface LoadingScreenProps {
   handleFullScreen: Function;
 }
 
+interface BlockProps {
+  state: number;
+}
+
+function Block({ state }: BlockProps) {
+  let depth = state < 3 ? state : state % 3;
+  return (
+    <div className={"outer outer-" + depth}>
+      <div className={"mid mid-" + depth}>
+        <div className={"inner inner-" + depth}></div>
+      </div>
+    </div>
+  );
+}
+
 const LoadingScreen: React.FC<LoadingScreenProps> = ({ handleFullScreen }) => {
   const [loadingTextIndex, setLoadingTextIndex] = useState(0);
   const [isLoadingTextShown, setIsLoadingTextShown] = useState(true);
+  const [depth, setDepth] = React.useState([2, 1, 0, 0, 0, 0, 0, 0, 1]);
+  React.useEffect(() => {
+    const x = setTimeout(() => {
+      setDepth([depth.pop()!, ...depth]);
+    }, 150);
+    return () => {
+      clearTimeout(x);
+    };
+  }, [depth]);
 
   useEffect(() => {
     const preventKeyInputs = (e: KeyboardEvent) => {
@@ -64,17 +88,9 @@ const LoadingScreen: React.FC<LoadingScreenProps> = ({ handleFullScreen }) => {
               {loadingMessages[loadingTextIndex]}
             </p>
             <div className="loading__container__bar">
-              <div id="pacman1"></div>
-              <div className="loading__container__bar__blocks">
-                {Array.from({ length: 7 }, (_, i) => (
-                  <motion.span
-                    key={i}
-                    initial={{ opacity: 1 }}
-                    animate={{ opacity: 0 }}
-                    transition={{ delay: 0.6 + 0.4 * i }}
-                  ></motion.span>
-                ))}
-              </div>
+              {Array.from({ length: 9 }, (_, i) => (
+                <Block key={i} state={depth[i]} />
+              ))}
             </div>
           </motion.div>
         )}

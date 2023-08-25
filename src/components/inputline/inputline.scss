@@ -39,5 +39,41 @@
       background-color: $green;
       animation: blink 1s infinite;
     }
+
+    .caret-loader {
+      margin-left: 8px;
+      height: 1rem;
+      width: 0.5rem;
+      display: flex;
+      justify-content: space-between;
+
+      .col {
+        display: flex;
+        justify-content: space-between;
+        flex-direction: column;
+
+        &-left {
+          flex-direction: column-reverse;
+        }
+
+        .dot {
+          display: block;
+          height: 0.1875rem;
+          width: 0.1875rem;
+          border-radius: 8px;
+        }
+        .shade {
+          &-0 {
+            background-color: $green2;
+          }
+          &-1 {
+            background-color: $green3;
+          }
+          &-2 {
+            background-color: $green4;
+          }
+        }
+      }
+    }
   }
 }

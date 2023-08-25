@@ -9,6 +9,7 @@ export const acceptedInputs = [
   "clr",
   "cls",
   "clear",
+  "history",
 ];
 
 export const outputs = {
@@ -31,6 +32,8 @@ export const outputs = {
       <br />
       <span className="white">cls | clr | clear</span> - Clears the terminal
       window.
+      <br />
+      <span className="white">history</span> - Shows a list of last 10 inputs.
       <br />
     </pre>
   ),
