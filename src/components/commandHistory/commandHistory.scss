@@ -4,6 +4,7 @@
   &__item {
     display: block;
     margin-left: 1ch;
+    margin-bottom: 4px;
   }
 
   &__item.selected {
@@ -12,6 +13,15 @@
   }
 
   &__container {
+    .input-line__address {
+      margin-bottom: 1rem;
+    }
     outline: none;
+    .address {
+      margin-right: 8px;
+    }
+    pre {
+      line-height: 22px;
+    }
   }
 }

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "./commandHistory.scss";
+import { commandLineText } from "../../models/models";
 
 interface IComamndHistoryProps {
   history: Array<string>;
@@ -49,6 +50,10 @@ const CommandHistory: React.FC<IComamndHistoryProps> = ({
       className="history__container"
       id="history_container"
     >
+      <div className="input-line__address">
+        <span className="address">{commandLineText}</span>
+        <span className="white">history</span>
+      </div>
       {filteredHistory.map((option, i) => (
         <span
           className={"history__item " + (i === selectedIndex ? "selected" : "")}
