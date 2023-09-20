@@ -15,7 +15,7 @@ interface ContextPropTypes {
 }
 
 const CommandProvider: React.FC<ContextPropTypes> = ({ children }) => {
-  const [commands, setCommands] = useState<Array<string>>([]);
+  const [commands, setCommands] = useState<Array<string>>(["welcome"]);
   return (
     <CommandContext.Provider value={{ commands, setCommands }}>
       {children}

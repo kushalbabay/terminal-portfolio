@@ -2,6 +2,7 @@ import React, { useState, useEffect, useContext } from "react";
 import InputLine from "../../components/inputline/inputline";
 import { acceptedInputs } from "../../models/models";
 import {
+  doFuzzySearch,
   showCommandNotFoundMessage,
   showCommandOutput,
 } from "../../utils/utils";
@@ -45,8 +46,7 @@ const Homepage: React.FC = () => {
       setIsHistoryShown(true);
     } else {
       if (!acceptedInputs.includes(command)) {
-        // doFuzzySearch()
-        message = showCommandNotFoundMessage(command);
+        message = showCommandNotFoundMessage(command, doFuzzySearch(command));
       } else {
         message = showCommandOutput(command);
       }
@@ -64,54 +64,6 @@ const Homepage: React.FC = () => {
       </AnimatePresence>
       {!isLoading && (
         <>
-          <div className="brand">
-            {/* <pre>
-              {`
- █████   ████                    █████                ████   ██        
-░░███   ███░                    ░░███                ░░███  ███        
- ░███  ███    █████ ████  █████  ░███████    ██████   ░███ ░░░   █████ 
- ░███████    ░░███ ░███  ███░░   ░███░░███  ░░░░░███  ░███      ███░░  
- ░███░░███    ░███ ░███ ░░█████  ░███ ░███   ███████  ░███     ░░█████ 
- ░███ ░░███   ░███ ░███  ░░░░███ ░███ ░███  ███░░███  ░███      ░░░░███
- █████ ░░████ ░░████████ ██████  ████ █████░░████████ █████     ██████ 
-░░░░░   ░░░░   ░░░░░░░░ ░░░░░░  ░░░░ ░░░░░  ░░░░░░░░ ░░░░░     ░░░░░░  
-                                                                       
-                                                                       
-                                                                       
-`}
-            </pre> */}
-            {/* <pre>
-              {`
-                                                  
-                                        
-                    .............       
-                  .....~^:..    ..      
-                 ...7PB#BBG5J~          
-                 ..?GGGBBBBPY!:         
-                .:!B57^:YY~^:.:         
-                 Y7B#G5P#J!!^::         
-                 :?P###GG??PY!.         
-                  :?PPPJ!:^7~.          
-                  :!!55J7^...           
-                 .?P7~!~^:..            
-               ^:7BBG5~.....            
-           ..:.::^P#GPJ~:..  .          
-       ..:::::..:::YBBGGP^     . .      
-     .::::::::::::..^?GJ:        ....   
-    .::.:::::::::::::.^..............   
-   ........::::::::::.:...........      
-  ..........::::::::............        
-
-          `}
-            </pre> */}
-            <br />
-          </div>
-          Built with{" "}
-          <a target="_blank" href="https://www.gatsbyjs.com/" className="link">
-            Gatsby.js
-          </a>{" "}
-          &&nbsp;<span className="red">&#10084;</span>
-          <br />
           <div className="output-stack">
             {outputStack.map((output, index) => {
               return (

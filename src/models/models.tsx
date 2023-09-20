@@ -10,6 +10,7 @@ export const acceptedInputs = [
   "cls",
   "clear",
   "history",
+  "welcome",
 ];
 
 export const outputs = {
@@ -35,7 +36,53 @@ export const outputs = {
       <br />
       <span className="white">history</span> - Shows a list of last 10 inputs.
       <br />
+      <span className="white">welcome</span> - Shows the welcome banner of the
+      website.
+      <br />
     </pre>
+  ),
+  welcome: (
+    <div className="brand">
+      <pre className="ascii-art">
+        {`
+                    .............       
+                  .....~^:..    ..      
+                 ...7PB#BBG5J~          
+                 ..?GGGBBBBPY!:         
+                .:!B57^:YY~^:.:         
+                 Y7B#G5P#J!!^::         
+                 :?P###GG??PY!.         
+                  :?PPPJ!:^7~.          
+                  :!!55J7^...           
+                 .?P7~!~^:..            
+               ^:7BBG5~.....            
+           ..:.::^P#GPJ~:..  .          
+       ..:::::..:::YBBGGP^     . .      
+     .::::::::::::..^?GJ:        ....   
+    .::.:::::::::::::.^..............   
+   ........::::::::::.:...........      
+  ..........::::::::............`}
+      </pre>
+      <pre className="name">
+        {`
+ █████   ████                    █████                ████   ██        
+░░███   ███░                    ░░███                ░░███  ███        
+ ░███  ███    █████ ████  █████  ░███████    ██████   ░███ ░░░   █████ 
+ ░███████    ░░███ ░███  ███░░   ░███░░███  ░░░░░███  ░███      ███░░  
+ ░███░░███    ░███ ░███ ░░█████  ░███ ░███   ███████  ░███     ░░█████ 
+ ░███ ░░███   ░███ ░███  ░░░░███ ░███ ░███  ███░░███  ░███      ░░░░███
+ █████ ░░████ ░░████████ ██████  ████ █████░░████████ █████     ██████ 
+░░░░░   ░░░░   ░░░░░░░░ ░░░░░░  ░░░░ ░░░░░  ░░░░░░░░ ░░░░░     ░░░░░░  
+                                                                       
+                                                                       
+`}
+        Built with <span className="red">&#10084;</span>
+        <br />
+        type <span className="white">help</span> to get the list of commands,
+      </pre>
+
+      <br />
+    </div>
   ),
 };
 

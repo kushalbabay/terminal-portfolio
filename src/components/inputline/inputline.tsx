@@ -57,15 +57,16 @@ const InputLine: React.FC<IInputLineProps> = ({ handleCommand }) => {
   };
 
   const handleKeyDown = (e: React.KeyboardEvent) => {
-    if (isCaretLoading) e.preventDefault();
-    let loadingTimeout: number;
-    if (["ArrowLeft", "ArrowRight", "Home", "End"].includes(e.key)) {
+    if (["ArrowLeft", "ArrowRight", "Home", "End", "Tab"].includes(e.key)) {
       e.preventDefault();
       return;
     }
+  };
 
+  const handleKeyUp = (e: React.KeyboardEvent) => {
+    if (isCaretLoading) e.preventDefault();
+    let loadingTimeout: number;
     if (e.key === "Tab") {
-      e.preventDefault();
       if (autoCompleteInputKeyword.length) {
         triggerAutoComplete();
       } else {
@@ -107,6 +108,7 @@ const InputLine: React.FC<IInputLineProps> = ({ handleCommand }) => {
         <div className="input-line__address">{commandLineText}</div>
         <input
           onKeyDown={(e) => handleKeyDown(e)}
+          onKeyUp={(e) => handleKeyUp(e)}
           onBlur={(e) => e.target.focus()}
           autoFocus
           type="text"
