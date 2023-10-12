@@ -10,7 +10,8 @@ export const showCommandNotFoundMessage = (
       . <br />
       {suggestion && (
         <>
-          Did you mean {suggestion} instead ?<br />
+          Did you mean <span className="white">{suggestion}</span> instead ?
+          <br />
         </>
       )}
       Type <span className="white">help</span> for all the available commands.

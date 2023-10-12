@@ -29,6 +29,15 @@
         font-family: "IBM Plex Mono", monospace;
       }
     }
+
+    .ascii-art {
+      display: none;
+    }
+
+    .brand-name__ascii {
+      transform-origin: 0;
+      scale: 0.6;
+    }
   }
 
   .empty-space {

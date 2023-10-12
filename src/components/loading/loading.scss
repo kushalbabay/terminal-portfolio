@@ -29,20 +29,28 @@
   position: relative;
 
   &__text {
-    transform: scale(0.6);
+    transform: scale(0.3);
+    top: -50px;
+    position: relative;
   }
 
   &__message {
+    max-width: 80vw;
     transform: translateY(-110px);
     text-transform: capitalize;
+    top: -50px;
+    position: relative;
   }
 
   &__bar {
+    max-width: 80vw;
     transform: translateY(-70px);
     align-items: center;
     justify-content: space-between;
     display: flex;
-    gap: 32px;
+    gap: 1rem;
+    top: -50px;
+    position: relative;
   }
 }
 
@@ -58,16 +66,19 @@
   align-items: center;
 
   &__box {
+    max-width: 80vw;
     text-align: center;
     background-color: $black;
     border: 2px dashed $blackGreen;
     padding: 36px;
     display: flex;
-    gap: 18px;
+    gap: 0.5rem;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     font-family: "Press Start 2P", cursive;
+    top: -50px;
+    position: relative;
 
     .buttons {
       display: flex;
@@ -79,7 +90,8 @@
         background-color: $black;
         color: $blackGreen;
         padding: 8px 16px;
-        font-size: 18px;
+        font-size: 0.9rem;
+
         outline: none;
         border: 2px dashed $blackGreen;
 
@@ -92,7 +104,9 @@
     }
 
     p {
-      font-size: 20px;
+      font-size: 0.9rem;
+      line-height: 1.5rem;
+
       text-transform: capitalize;
     }
   }

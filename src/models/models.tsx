@@ -63,8 +63,9 @@ export const outputs = {
    ........::::::::::.:...........      
   ..........::::::::............`}
       </pre>
-      <pre className="name">
-        {`
+      <div className="brand-name">
+        <pre className="brand-name__ascii">
+          {`
  █████   ████                    █████                ████   ██        
 ░░███   ███░                    ░░███                ░░███  ███        
  ░███  ███    █████ ████  █████  ░███████    ██████   ░███ ░░░   █████ 
@@ -76,10 +77,11 @@ export const outputs = {
                                                                        
                                                                        
 `}
+        </pre>
         Built with <span className="red">&#10084;</span>
         <br />
         type <span className="white">help</span> to get the list of commands,
-      </pre>
+      </div>
 
       <br />
     </div>

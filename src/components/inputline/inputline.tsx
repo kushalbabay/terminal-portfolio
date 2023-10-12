@@ -113,7 +113,7 @@ const InputLine: React.FC<IInputLineProps> = ({ handleCommand }) => {
           autoFocus
           type="text"
           value={inputCommand}
-          style={{ width: inputCommand?.length + "ch" }}
+          style={{ width: (inputCommand ? inputCommand.length : 1) + "ch" }}
           onChange={(e) => setInputCommand(e.target.value)}
           className="input-line__input-field"
         />
@@ -121,18 +121,21 @@ const InputLine: React.FC<IInputLineProps> = ({ handleCommand }) => {
         {isCaretLoading ? (
           <div className="caret-loader">
             <div className="col col-left">
-              <span className={"dot shade-" + caretDepth[0]}></span>
-              <span className={"dot shade-" + caretDepth[1]}></span>
-              <span className={"dot shade-" + caretDepth[2]}></span>
+              {Array.from({ length: 3 }).map((_, i) => (
+                <span className={"dot shade-" + caretDepth[i]}></span>
+              ))}
             </div>
             <div className="col col-right">
-              <span className={"dot shade-" + caretDepth[3]}></span>
-              <span className={"dot shade-" + caretDepth[4]}></span>
-              <span className={"dot shade-" + caretDepth[5]}></span>
+              {Array.from({ length: 3 }).map((_, i) => (
+                <span className={"dot shade-" + caretDepth[i + 3]}></span>
+              ))}
             </div>
           </div>
         ) : (
-          <div className="input-line__cursor"></div>
+          <div
+            style={{ left: inputCommand.length ? 0 : "-1ch" }}
+            className="input-line__cursor"
+          ></div>
         )}
       </div>
     </div>
