@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from "react";
-import { commandLineText } from "../../models/models";
+import { KeyCodes, commandLineText } from "../../models/models";
 import { autoCompleteInput } from "../../utils/utils";
 import "./inputline.scss";
 import { CommandContext } from "../../contexts/CommandContext";
@@ -57,7 +57,15 @@ const InputLine: React.FC<IInputLineProps> = ({ handleCommand }) => {
   };
 
   const handleKeyDown = (e: React.KeyboardEvent) => {
-    if (["ArrowLeft", "ArrowRight", "Home", "End", "Tab"].includes(e.key)) {
+    if (
+      [
+        KeyCodes.ArrowLeft,
+        KeyCodes.ArrowRight,
+        KeyCodes.Home,
+        KeyCodes.Tab,
+        KeyCodes.End,
+      ].includes(e.key)
+    ) {
       e.preventDefault();
       return;
     }
@@ -113,7 +121,7 @@ const InputLine: React.FC<IInputLineProps> = ({ handleCommand }) => {
           autoFocus
           type="text"
           value={inputCommand}
-          style={{ width: (inputCommand ? inputCommand.length : 1) + "ch" }}
+          style={{ width: (inputCommand.length || 1) + "ch" }}
           onChange={(e) => setInputCommand(e.target.value)}
           className="input-line__input-field"
         />

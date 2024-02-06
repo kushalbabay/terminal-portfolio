@@ -29,28 +29,20 @@
   position: relative;
 
   &__text {
-    transform: scale(0.3);
-    top: -50px;
-    position: relative;
+    font-size: 0.66rem;
+    line-height: 0.66rem;
   }
 
   &__message {
-    max-width: 80vw;
-    transform: translateY(-110px);
+    margin-bottom: 2rem;
     text-transform: capitalize;
-    top: -50px;
-    position: relative;
   }
 
   &__bar {
-    max-width: 80vw;
-    transform: translateY(-70px);
     align-items: center;
     justify-content: space-between;
     display: flex;
     gap: 1rem;
-    top: -50px;
-    position: relative;
   }
 }
 
@@ -77,8 +69,6 @@
     justify-content: center;
     align-items: center;
     font-family: "Press Start 2P", cursive;
-    top: -50px;
-    position: relative;
 
     .buttons {
       display: flex;

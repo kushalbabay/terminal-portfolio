@@ -31,6 +31,8 @@ export default function RainBG() {
     }
 
     setInterval(draw, 100);
+
+    return () => ctx.clearRect(0, 0, canvas.width, canvas.height);
   }, []);
 
   function initMatrix() {

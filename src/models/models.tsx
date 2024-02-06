@@ -1,5 +1,17 @@
 export const commandLineText = `visitor@kushal's-terminal:~$`;
 
+export const KeyCodes = {
+  Home: "Home",
+  End: "End",
+  Tab: "Tab",
+  Enter: "Enter",
+  Escape: "Escape",
+  ArrowUp: "ArrowUp",
+  ArrowDown: "ArrowDown",
+  ArrowLeft: "ArrowLeft",
+  ArrowRight: "ArrowRight",
+};
+
 export const acceptedInputs = [
   "help",
   "about",

@@ -1,15 +1,24 @@
 import React from "react";
-import { commandLineText } from "../../models/models";
+import { acceptedInputs, commandLineText } from "../../models/models";
 import "./output.scss";
+import {
+  showCommandNotFoundMessage,
+  showCommandOutput,
+} from "../../utils/utils";
 
 interface OutputProps {
   command: string;
-  children: React.ReactNode;
 }
 
-const Output: React.FC<OutputProps> = ({ command, children }) => {
+const Output: React.FC<OutputProps> = ({ command }) => {
+  let message;
   if (!command.length) {
     return <span className="address">{commandLineText}</span>;
+  }
+  if (!acceptedInputs.includes(command)) {
+    message = showCommandNotFoundMessage(command);
+  } else {
+    message = showCommandOutput(command);
   }
   return (
     <div className="output__container">
@@ -18,7 +27,7 @@ const Output: React.FC<OutputProps> = ({ command, children }) => {
         <span className="white">{command}</span>
       </div>
       <br />
-      {children}
+      {message}
     </div>
   );
 };

@@ -5,36 +5,13 @@ import RainBG from "../rainBG/rainBG";
 import { AnimatePresence, easeIn, motion } from "framer-motion";
 
 interface LoadingScreenProps {
-  handleFullScreen: Function;
+  setIsLoading: Function;
 }
 
-interface BlockProps {
-  state: number;
-}
-
-function Block({ state }: BlockProps) {
-  let depth = state < 3 ? state : state % 3;
-  return (
-    <div className={"outer outer-" + depth}>
-      <div className={"mid mid-" + depth}>
-        <div className={"inner inner-" + depth}></div>
-      </div>
-    </div>
-  );
-}
-
-const LoadingScreen: React.FC<LoadingScreenProps> = ({ handleFullScreen }) => {
+const LoadingScreen: React.FC<LoadingScreenProps> = ({ setIsLoading }) => {
   const [loadingTextIndex, setLoadingTextIndex] = useState(0);
   const [isLoadingTextShown, setIsLoadingTextShown] = useState(true);
-  const [depth, setDepth] = React.useState([2, 1, 0, 0, 0, 0, 0, 0, 1]);
-  React.useEffect(() => {
-    const x = setTimeout(() => {
-      setDepth([depth.pop()!, ...depth]);
-    }, 150);
-    return () => {
-      clearTimeout(x);
-    };
-  }, [depth]);
+  const [depth, setDepth] = useState([2, 1, 0, 0, 0, 0, 0, 1, 1]);
 
   useEffect(() => {
     const preventKeyInputs = (e: KeyboardEvent) => {
@@ -49,6 +26,15 @@ const LoadingScreen: React.FC<LoadingScreenProps> = ({ handleFullScreen }) => {
   }, []);
 
   useEffect(() => {
+    const x = setTimeout(() => {
+      setDepth([depth.pop()!, ...depth]);
+    }, 150);
+    return () => {
+      clearTimeout(x);
+    };
+  }, [depth]);
+
+  useEffect(() => {
     setTimeout(() => {
       setIsLoadingTextShown(false);
     }, 3000);
@@ -60,6 +46,13 @@ const LoadingScreen: React.FC<LoadingScreenProps> = ({ handleFullScreen }) => {
       }
     }, 300);
   }, [loadingTextIndex]);
+
+  const handleFullScreen = (isFullScreenTriggered: boolean) => {
+    if (isFullScreenTriggered) {
+      document.body.requestFullscreen();
+    }
+    setIsLoading(false);
+  };
 
   return (
     <motion.div
@@ -73,7 +66,7 @@ const LoadingScreen: React.FC<LoadingScreenProps> = ({ handleFullScreen }) => {
       <AnimatePresence>
         {isLoadingTextShown && (
           <motion.div
-            initial={{ y: 250 }}
+            initial={{ y: 350 }}
             animate={{ y: 0 }}
             exit={{
               opacity: 0,
@@ -119,3 +112,18 @@ const LoadingScreen: React.FC<LoadingScreenProps> = ({ handleFullScreen }) => {
 };
 
 export default LoadingScreen;
+
+interface BlockProps {
+  state: number;
+}
+
+function Block({ state }: BlockProps) {
+  let depth = state < 3 ? state : state % 3;
+  return (
+    <div className={"outer outer-" + depth}>
+      <div className={"mid mid-" + depth}>
+        <div className={"inner inner-" + depth}></div>
+      </div>
+    </div>
+  );
+}

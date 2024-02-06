@@ -1,9 +1,7 @@
 import { acceptedInputs, outputs } from "../models/models";
 
-export const showCommandNotFoundMessage = (
-  command: string,
-  suggestion: string | null
-) => {
+export const showCommandNotFoundMessage = (command: string) => {
+  let suggestion = doFuzzySearch(command);
   return (
     <pre>
       We could not find the command <span className="red">{command}</span>
@@ -67,7 +65,7 @@ export const autoCompleteInput = (
 export const doFuzzySearch = (keyword: string) => {
   let acceptedInputsList = acceptedInputs;
   let minDistance = Infinity;
-  let closestMatch: string | null = null;
+  let closestMatch: string = "";
 
   for (const str of acceptedInputsList) {
     const distance = levenshteinDistance(keyword, str);

@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import "./commandHistory.scss";
-import { commandLineText } from "../../models/models";
+import { KeyCodes, commandLineText } from "../../models/models";
 
 interface IComamndHistoryProps {
   history: Array<string>;
@@ -19,27 +19,32 @@ const CommandHistory: React.FC<IComamndHistoryProps> = ({
   const [selectedIndex, setSelectedIndex] = useState(
     filteredHistory.length - 1
   );
+  const historyContainer = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    document.getElementById("history_container")?.focus();
+    historyContainer.current?.focus();
   }, []);
 
   const handleSelectionChange = (event: React.KeyboardEvent) => {
     event.preventDefault();
-    if (event.key === "ArrowUp") {
-      if (selectedIndex !== 0) {
-        setSelectedIndex(selectedIndex - 1);
-      }
-    } else if (event.key === "ArrowDown") {
-      if (selectedIndex !== filteredHistory.length - 1) {
-        setSelectedIndex(selectedIndex + 1);
-      }
-    } else if (event.key === "Enter") {
-      const selectedCommand = filteredHistory[selectedIndex];
-      setCommands([...history, selectedCommand]);
-      setIsHistoryShown(false);
-    } else if (event.key === "Escape") {
-      setIsHistoryShown(false);
+    switch (event.key) {
+      case KeyCodes.Enter:
+        const selectedCommand = filteredHistory[selectedIndex];
+        setCommands([...history, selectedCommand]);
+        setIsHistoryShown(false);
+        break;
+      case KeyCodes.Escape:
+        setIsHistoryShown(false);
+        break;
+      case KeyCodes.ArrowUp:
+        if (selectedIndex !== 0) {
+          setSelectedIndex(selectedIndex - 1);
+        }
+        break;
+      case KeyCodes.ArrowDown:
+        if (selectedIndex !== filteredHistory.length - 1) {
+          setSelectedIndex(selectedIndex + 1);
+        }
     }
   };
 
@@ -49,6 +54,7 @@ const CommandHistory: React.FC<IComamndHistoryProps> = ({
       onKeyUp={(e) => handleSelectionChange(e)}
       className="history__container"
       id="history_container"
+      ref={historyContainer}
     >
       <div className="input-line__address">
         <span className="address">{commandLineText}</span>
